@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const User = require("../models/User")
 
+// REGISTER
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password, college } = req.body
@@ -9,7 +10,9 @@ router.post("/register", async (req, res) => {
     const existingUser = await User.findOne({ email })
 
     if (existingUser) {
-      return res.status(400).json({ message: "Email already registered" })
+      return res.status(400).json({
+        message: "Email already registered",
+      })
     }
 
     const user = new User({
@@ -22,12 +25,18 @@ router.post("/register", async (req, res) => {
 
     await user.save()
 
-    res.status(201).json({ message: "User Registered Successfully" })
+    res.status(201).json({
+      message: "User Registered Successfully",
+      user,
+    })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({
+      error: err.message,
+    })
   }
 })
 
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body
@@ -35,11 +44,15 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email })
 
     if (!user) {
-      return res.status(401).json({ message: "User not found" })
+      return res.status(401).json({
+        message: "User not found",
+      })
     }
 
     if (user.password !== password) {
-      return res.status(401).json({ message: "Wrong password" })
+      return res.status(401).json({
+        message: "Wrong password",
+      })
     }
 
     res.status(200).json({
@@ -48,7 +61,9 @@ router.post("/login", async (req, res) => {
       user,
     })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({
+      error: err.message,
+    })
   }
 })
 
