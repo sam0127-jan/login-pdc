@@ -4,16 +4,60 @@ export default function Login() {
 
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
 
     e.preventDefault()
 
-    // future मध्ये इथे backend login येईल
+    const form = e.target
 
-    alert('Login Successful')
+    const loginData = {
+      email: form[0].value,
+      password: form[1].value,
+    }
 
-    // dashboard ला redirect
-    navigate('/dashboard')
+    try {
+
+      const res = await fetch(
+        'https://login-pdc.onrender.com/api/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(loginData),
+        }
+      )
+
+      const data = await res.json()
+
+      if (data.message === 'Login Success') {
+
+        alert('Login Successful')
+
+        // role check
+        if (data.role === 'admin') {
+
+          navigate('/admin/dashboard')
+
+        } else {
+
+          navigate('/dashboard')
+
+        }
+
+      } else {
+
+        alert(data.message)
+
+      }
+
+    } catch (err) {
+
+      alert('Server Error')
+
+      console.log(err)
+
+    }
 
   }
 
