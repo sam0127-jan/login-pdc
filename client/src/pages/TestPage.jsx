@@ -2,255 +2,180 @@ import { useEffect, useState } from 'react'
 import questions from './questions'
 
 export default function TestPage() {
-
   const [currentQuestion, setCurrentQuestion] = useState(0)
-
   const [score, setScore] = useState(0)
-
   const [showResult, setShowResult] = useState(false)
-
   const [timeLeft, setTimeLeft] = useState(300)
-
   const [warnings, setWarnings] = useState(0)
+  const [submitted, setSubmitted] = useState(false)
 
-  // WARNING FUNCTION
+  const submitResult = async (finalScore, finalWarnings = warnings) => {
+    if (submitted) return
 
-  const giveWarning = () => {
+    setSubmitted(true)
 
+    const resultData = {
+      studentName: localStorage.getItem('studentName') || 'Student',
+      studentEmail: localStorage.getItem('studentEmail') || 'student@gmail.com',
+      testTitle: 'Online Aptitude Test',
+      score: finalScore,
+      totalQuestions: questions.length,
+      warnings: finalWarnings,
+    }
+
+    try {
+      await fetch('https://login-pdc.onrender.com/api/results/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(resultData),
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const giveWarning = async () => {
     const newWarnings = warnings + 1
-
     setWarnings(newWarnings)
 
     alert(`Warning ${newWarnings}/5`)
 
     if (newWarnings >= 5) {
-
       alert('Test Auto Submitted')
-
+      await submitResult(score, newWarnings)
       setShowResult(true)
-
     }
-
   }
 
-  // TIMER
-
   useEffect(() => {
-
     if (timeLeft > 0 && !showResult) {
-
       const timer = setInterval(() => {
-
         setTimeLeft((prev) => prev - 1)
-
       }, 1000)
 
       return () => clearInterval(timer)
-
     }
 
-    if (timeLeft === 0) {
-
+    if (timeLeft === 0 && !showResult) {
+      submitResult(score, warnings)
       setShowResult(true)
-
     }
-
   }, [timeLeft, showResult])
 
-  // FULLSCREEN START
-
   useEffect(() => {
-
-    document.documentElement.requestFullscreen()
-
+    document.documentElement.requestFullscreen().catch(() => {})
   }, [])
 
-  // COPY PASTE BLOCK
-
   useEffect(() => {
-
     const preventCopy = (e) => {
-
       e.preventDefault()
-
     }
 
     document.addEventListener('copy', preventCopy)
-
     document.addEventListener('paste', preventCopy)
-
     document.addEventListener('contextmenu', preventCopy)
 
     return () => {
-
       document.removeEventListener('copy', preventCopy)
-
       document.removeEventListener('paste', preventCopy)
-
       document.removeEventListener('contextmenu', preventCopy)
-
     }
-
   }, [])
 
-  // TAB SWITCH + MINIMIZE DETECT
-
   useEffect(() => {
-
     const handleVisibility = () => {
-
-      if (document.hidden) {
-
+      if (document.hidden && !showResult) {
         giveWarning()
-
       }
-
     }
 
-    document.addEventListener(
-      'visibilitychange',
-      handleVisibility
-    )
+    document.addEventListener('visibilitychange', handleVisibility)
 
     return () => {
-
-      document.removeEventListener(
-        'visibilitychange',
-        handleVisibility
-      )
-
+      document.removeEventListener('visibilitychange', handleVisibility)
     }
-
-  }, [warnings])
-
-  // SCREEN RESIZE DETECT
+  }, [warnings, showResult])
 
   useEffect(() => {
-
     const handleResize = () => {
-
       if (
-        window.innerWidth < 1000 ||
-        window.innerHeight < 600
+        !showResult &&
+        (window.innerWidth < 1000 || window.innerHeight < 600)
       ) {
-
         giveWarning()
-
       }
-
     }
 
     window.addEventListener('resize', handleResize)
 
     return () => {
-
-      window.removeEventListener(
-        'resize',
-        handleResize
-      )
-
+      window.removeEventListener('resize', handleResize)
     }
-
-  }, [warnings])
-
-  // DEVTOOLS DETECT
+  }, [warnings, showResult])
 
   useEffect(() => {
-
     const detectDevTools = setInterval(() => {
-
       if (
-        window.outerWidth - window.innerWidth > 160 ||
-        window.outerHeight - window.innerHeight > 160
+        !showResult &&
+        (window.outerWidth - window.innerWidth > 160 ||
+          window.outerHeight - window.innerHeight > 160)
       ) {
-
         giveWarning()
-
       }
-
     }, 1000)
 
     return () => clearInterval(detectDevTools)
-
-  }, [warnings])
-
-  // FULLSCREEN EXIT DETECT
+  }, [warnings, showResult])
 
   useEffect(() => {
-
     const handleFullscreen = () => {
-
-      if (!document.fullscreenElement) {
-
+      if (!document.fullscreenElement && !showResult) {
         giveWarning()
-
       }
-
     }
 
-    document.addEventListener(
-      'fullscreenchange',
-      handleFullscreen
-    )
+    document.addEventListener('fullscreenchange', handleFullscreen)
 
     return () => {
-
-      document.removeEventListener(
-        'fullscreenchange',
-        handleFullscreen
-      )
-
+      document.removeEventListener('fullscreenchange', handleFullscreen)
     }
+  }, [warnings, showResult])
 
-  }, [warnings])
-
-  // HANDLE ANSWER
-
-  const handleAnswer = (option) => {
+  const handleAnswer = async (option) => {
+    let finalScore = score
 
     if (option === questions[currentQuestion].answer) {
-
-      setScore(score + 1)
-
+      finalScore = score + 1
+      setScore(finalScore)
     }
 
     const nextQuestion = currentQuestion + 1
 
     if (nextQuestion < questions.length) {
-
       setCurrentQuestion(nextQuestion)
-
     } else {
-
+      await submitResult(finalScore, warnings)
       setShowResult(true)
-
     }
-
   }
 
-  // TIMER FORMAT
-
   const minutes = Math.floor(timeLeft / 60)
-
   const seconds = timeLeft % 60
 
   return (
-
     <section
       id="test"
       className="min-h-screen bg-[#020617] text-white px-6 py-32"
     >
-
       <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-[32px] p-10 backdrop-blur-xl">
-
         <div className="flex items-center justify-between mb-10">
-
           <h1 className="text-5xl font-black">
             Online Aptitude Test
           </h1>
 
           <div className="text-right">
-
             <p className="text-red-400 font-bold text-2xl">
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </p>
@@ -258,15 +183,11 @@ export default function TestPage() {
             <p className="text-yellow-400 font-semibold">
               Warnings: {warnings}/5
             </p>
-
           </div>
-
         </div>
 
         {showResult ? (
-
           <div className="text-center py-20">
-
             <h2 className="text-5xl font-black text-cyan-400 mb-8">
               Test Submitted
             </h2>
@@ -278,13 +199,9 @@ export default function TestPage() {
             <p className="text-slate-400 text-xl">
               Your test has been completed successfully.
             </p>
-
           </div>
-
         ) : (
-
           <div>
-
             <p className="text-slate-400 mb-5">
               Question {currentQuestion + 1} of {questions.length}
             </p>
@@ -294,9 +211,7 @@ export default function TestPage() {
             </h2>
 
             <div className="grid gap-5">
-
               {questions[currentQuestion].options.map((option, index) => (
-
                 <button
                   key={index}
                   onClick={() => handleAnswer(option)}
@@ -304,19 +219,11 @@ export default function TestPage() {
                 >
                   {option}
                 </button>
-
               ))}
-
             </div>
-
           </div>
-
         )}
-
       </div>
-
     </section>
-
   )
-
 }

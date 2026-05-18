@@ -37,3 +37,7 @@ app.use("/api/admin", adminRoutes)
 
 const testRoutes = require("./routes/test")
 app.use("/api/tests", testRoutes)
+
+const resultRoutes = require("./routes/result")
+
+app.use("/api/results", resultRoutes)
