@@ -5,39 +5,35 @@ require("dotenv").config()
 
 const app = express()
 
+// Middlewares
 app.use(cors())
 app.use(express.json())
 
 // MongoDB connect
-mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.log(err))
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err))
 
-// test route
+// Test route
 app.get("/", (req, res) => {
-    res.send("Server is running")
+  res.send("Server is running")
 })
 
-
-// 🚀 IMPORT ROUTES (IMPORTANT)
+// Import routes
 const authRoutes = require("./routes/auth")
+const adminRoutes = require("./routes/admin")
+const testRoutes = require("./routes/test")
+const resultRoutes = require("./routes/result")
 
-// 🚀 USE ROUTES
+// Use routes
 app.use("/api/auth", authRoutes)
+app.use("/api/admin", adminRoutes)
+app.use("/api/tests", testRoutes)
+app.use("/api/results", resultRoutes)
 
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
-    console.log("Server running on port", PORT)
+  console.log("Server running on port", PORT)
 })
-
-const adminRoutes = require("./routes/admin")
-
-app.use("/api/admin", adminRoutes)
-
-const testRoutes = require("./routes/test")
-app.use("/api/tests", testRoutes)
-
-const resultRoutes = require("./routes/result")
-
-app.use("/api/results", resultRoutes)
