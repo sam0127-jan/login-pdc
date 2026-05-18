@@ -1,0 +1,4 @@
+git status
+git add .
+git commit -m "full backend setup with auth routes"
+git push origin main
