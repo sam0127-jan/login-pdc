@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import {
   BrowserRouter,
   Routes,
@@ -8,6 +9,7 @@ import {
 
 import './index.css'
 
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -16,21 +18,55 @@ import AdminDashboard from './pages/AdminDashboard'
 import TestPage from './pages/TestPage'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+
   <BrowserRouter>
+
     <Routes>
 
-      <Route path="/" element={<Login />} />
+      {/* HOME PAGE */}
+      <Route
+        path="/"
+        element={<Home />}
+      />
 
-      <Route path="/register" element={<Register />} />
+      {/* STUDENT LOGIN */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* REGISTER */}
+      <Route
+        path="/register"
+        element={<Register />}
+      />
 
-      <Route path="/admin/login" element={<AdminLogin />} />
+      {/* STUDENT DASHBOARD */}
+      <Route
+        path="/dashboard"
+        element={<Dashboard />}
+      />
 
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      {/* ADMIN LOGIN */}
+      <Route
+        path="/admin/login"
+        element={<AdminLogin />}
+      />
 
-      <Route path="/test" element={<TestPage />} />
+      {/* ADMIN DASHBOARD */}
+      <Route
+        path="/admin/dashboard"
+        element={<AdminDashboard />}
+      />
+
+      {/* TEST PAGE */}
+      <Route
+        path="/test"
+        element={<TestPage />}
+      />
 
     </Routes>
+
   </BrowserRouter>
+
 )
