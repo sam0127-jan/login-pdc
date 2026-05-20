@@ -10,78 +10,82 @@ import {
 
 import './index.css'
 
-import Home from './pages/Home'
+import Home from './pages/Home.jsx'
 
-import Login from './pages/Login'
+import Login from './pages/Login.jsx'
 
-import Register from './pages/Register'
+import Register from './pages/Register.jsx'
 
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard.jsx'
 
-import AdminLogin from './pages/AdminLogin'
+import AdminLogin from './pages/AdminLogin.jsx'
 
-import AdminDashboard from './pages/AdminDashboard'
+import AdminDashboard from './pages/AdminDashboard.jsx'
 
-import TestPage from './pages/TestPage'
+import TestPage from './pages/TestPage.jsx'
 
-import Tests from './pages/Tests'
+import Tests from './pages/Tests.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <BrowserRouter>
+  <React.StrictMode>
 
-    <Routes>
+    <BrowserRouter>
 
-      {/* HOME PAGE */}
-      <Route
-        path="/"
-        element={<Home />}
-      />
+      <Routes>
 
-      {/* STUDENT LOGIN */}
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+        {/* HOME PAGE */}
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-      {/* REGISTER */}
-      <Route
-        path="/register"
-        element={<Register />}
-      />
+        {/* STUDENT LOGIN */}
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-      {/* STUDENT DASHBOARD */}
-      <Route
-        path="/dashboard"
-        element={<Dashboard />}
-      />
+        {/* REGISTER */}
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-      {/* ALL TESTS PAGE */}
-      <Route
-        path="/tests"
-        element={<Tests />}
-      />
+        {/* STUDENT DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-      {/* SINGLE TEST PAGE */}
-      <Route
-        path="/test/:id"
-        element={<TestPage />}
-      />
+        {/* TESTS */}
+        <Route
+          path="/tests"
+          element={<Tests />}
+        />
 
-      {/* ADMIN LOGIN */}
-      <Route
-        path="/admin/login"
-        element={<AdminLogin />}
-      />
+        {/* SINGLE TEST */}
+        <Route
+          path="/test/:id"
+          element={<TestPage />}
+        />
 
-      {/* ADMIN DASHBOARD */}
-      <Route
-        path="/admin/dashboard"
-        element={<AdminDashboard />}
-      />
+        {/* ADMIN LOGIN */}
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
 
-    </Routes>
+        {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
 
-  </BrowserRouter>
+      </Routes>
+
+    </BrowserRouter>
+
+  </React.StrictMode>
 
 )
