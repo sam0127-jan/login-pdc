@@ -1,18 +1,21 @@
 const express = require("express")
+
 const router = express.Router()
 
-const Result = require("../models/Result")
+const Test = require("../models/Test")
 
-// SAVE RESULT
-router.post("/submit", async (req, res) => {
+// CREATE TEST
+router.post("/create", async (req, res) => {
+
   try {
 
-    const result = new Result(req.body)
+    const test = new Test(req.body)
 
-    await result.save()
+    await test.save()
 
     res.json({
-      message: "Result Saved Successfully",
+      message: "Test Published Successfully",
+      test,
     })
 
   } catch (err) {
@@ -22,17 +25,18 @@ router.post("/submit", async (req, res) => {
     })
 
   }
+
 })
 
-
-// ADMIN GET ALL RESULTS
+// GET ALL TESTS
 router.get("/", async (req, res) => {
+
   try {
 
-    const results = await Result.find()
-      .sort({ submittedAt: -1 })
+    const tests = await Test.find()
+      .sort({ createdAt: -1 })
 
-    res.json(results)
+    res.json(tests)
 
   } catch (err) {
 
@@ -41,6 +45,47 @@ router.get("/", async (req, res) => {
     })
 
   }
+
+})
+
+// GET SINGLE TEST
+router.get("/:id", async (req, res) => {
+
+  try {
+
+    const test = await Test.findById(req.params.id)
+
+    res.json(test)
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message,
+    })
+
+  }
+
+})
+
+// DELETE TEST
+router.delete("/:id", async (req, res) => {
+
+  try {
+
+    await Test.findByIdAndDelete(req.params.id)
+
+    res.json({
+      message: "Test Deleted Successfully",
+    })
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message,
+    })
+
+  }
+
 })
 
 module.exports = router

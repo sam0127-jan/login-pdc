@@ -37,3 +37,9 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log("Server running on port", PORT)
 })
+
+const announcementRoutes = require("./routes/announcement")
+const activityRoutes = require("./routes/activity")
+
+app.use("/api/announcements", announcementRoutes)
+app.use("/api/activities", activityRoutes)
