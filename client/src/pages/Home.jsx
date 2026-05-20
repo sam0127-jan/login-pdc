@@ -67,23 +67,19 @@ export default function Home() {
               Team
             </a>
 
-            <a
-              href="https://login-pdc.vercel.app/?utm_source=chatgpt.com"
-              target="_blank"
-              rel="noreferrer"
-              className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-6 py-3 rounded-2xl transition-all duration-300 shadow-lg shadow-cyan-400/20"
-            >
-              Student Login
-            </a>
+          <a
+  href="/login"
+  className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-6 py-3 rounded-2xl transition-all duration-300 shadow-lg shadow-cyan-400/20"
+>
+  Student Login
+</a>
 
-            <a
-              href="https://login-pdc.vercel.app/admin/login"
-              target="_blank"
-              rel="noreferrer"
-              className="border border-white/20 hover:border-cyan-400 px-6 py-3 rounded-2xl transition-all duration-300"
-            >
-              Admin Login
-            </a>
+<a
+  href="/admin/login"
+  className="border border-white/20 hover:border-cyan-400 px-6 py-3 rounded-2xl transition-all duration-300"
+>
+  Admin Login
+</a>
           </div>
         </div>
       </nav>
