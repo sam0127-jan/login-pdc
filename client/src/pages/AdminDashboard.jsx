@@ -504,69 +504,76 @@ export default function AdminDashboard() {
         </div>
 
         {/* RESULTS */}
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+<div className="bg-white/5 border border-white/10 rounded-3xl p-8">
 
-          <h2 className="text-4xl font-black mb-8">
-            Student Results
-          </h2>
+  <h2 className="text-4xl font-black mb-8">
+    Test Wise Student Results
+  </h2>
 
-          <div className="overflow-auto">
+  {tests.map((test) => {
 
-            <table className="w-full">
+    const testResults = results
+      .filter((result) => result.testId === test._id)
+      .sort((a, b) => b.score - a.score)
 
-              <thead>
+    return (
+      <div
+        key={test._id}
+        className="mb-12 bg-slate-900/60 border border-white/10 rounded-3xl p-6"
+      >
+        <h3 className="text-3xl font-black text-cyan-400 mb-2">
+          {test.title}
+        </h3>
 
-                <tr className="border-b border-white/10 text-left">
+        <p className="text-slate-400 mb-6">
+          {test.description}
+        </p>
 
-                  <th className="p-4">Student</th>
+        <div className="overflow-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-white/10 text-left">
+                <th className="p-4">Rank</th>
+                <th className="p-4">Student</th>
+                <th className="p-4">Email</th>
+                <th className="p-4">Branch</th>
+                <th className="p-4">Year</th>
+                <th className="p-4">Score</th>
+                <th className="p-4">Warnings</th>
+              </tr>
+            </thead>
 
-                  <th className="p-4">Test</th>
-
-                  <th className="p-4">Score</th>
-
-                  <th className="p-4">Warnings</th>
-
+            <tbody>
+              {testResults.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="p-4 text-slate-400 text-center">
+                    No results submitted for this test.
+                  </td>
                 </tr>
-
-              </thead>
-
-              <tbody>
-
-                {results.map((result) => (
-
-                  <tr
-                    key={result._id}
-                    className="border-b border-white/5"
-                  >
-
-                    <td className="p-4">
-                      {result.studentName}
+              ) : (
+                testResults.map((result, index) => (
+                  <tr key={result._id} className="border-b border-white/5">
+                    <td className="p-4 font-black text-yellow-400">
+                      #{index + 1}
                     </td>
-
-                    <td className="p-4">
-                      {result.testTitle}
-                    </td>
-
-                    <td className="p-4">
+                    <td className="p-4">{result.studentName}</td>
+                    <td className="p-4 text-slate-400">{result.studentEmail}</td>
+                    <td className="p-4">{result.branch || "Not Provided"}</td>
+                    <td className="p-4">{result.year || "Not Provided"}</td>
+                    <td className="p-4 font-black text-green-400">
                       {result.score} / {result.totalQuestions}
                     </td>
-
-                    <td className="p-4">
-                      {result.warnings}
-                    </td>
-
+                    <td className="p-4 text-red-400">{result.warnings}</td>
                   </tr>
-
-                ))}
-
-              </tbody>
-
-            </table>
-
-          </div>
-
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-
+      </div>
+    )
+  })}
+</div>
       </div>
 
     </section>
