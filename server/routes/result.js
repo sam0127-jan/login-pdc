@@ -14,14 +14,14 @@ router.post("/create", async (req, res) => {
     await test.save()
 
     res.json({
-      message: "Test Published Successfully",
-      test,
+      message: "Test Created Successfully",
+      test
     })
 
   } catch (err) {
 
     res.status(500).json({
-      error: err.message,
+      error: err.message
     })
 
   }
@@ -33,15 +33,16 @@ router.get("/", async (req, res) => {
 
   try {
 
-    const tests = await Test.find()
-      .sort({ createdAt: -1 })
+    const tests = await Test.find().sort({
+      createdAt: -1
+    })
 
     res.json(tests)
 
   } catch (err) {
 
     res.status(500).json({
-      error: err.message,
+      error: err.message
     })
 
   }
@@ -55,33 +56,20 @@ router.get("/:id", async (req, res) => {
 
     const test = await Test.findById(req.params.id)
 
+    if (!test) {
+
+      return res.status(404).json({
+        message: "Test not found"
+      })
+
+    }
+
     res.json(test)
 
   } catch (err) {
 
     res.status(500).json({
-      error: err.message,
-    })
-
-  }
-
-})
-
-// DELETE TEST
-router.delete("/:id", async (req, res) => {
-
-  try {
-
-    await Test.findByIdAndDelete(req.params.id)
-
-    res.json({
-      message: "Test Deleted Successfully",
-    })
-
-  } catch (err) {
-
-    res.status(500).json({
-      error: err.message,
+      error: err.message
     })
 
   }
