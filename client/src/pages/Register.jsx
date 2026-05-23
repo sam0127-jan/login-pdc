@@ -14,7 +14,9 @@ export default function Register() {
       name: form[0].value,
       email: form[1].value,
       password: form[2].value,
-      college: form[3].value,
+      branch: form[3].value,
+      year: form[4].value,
+      college: form[5].value,
     }
 
     try {
@@ -32,7 +34,6 @@ export default function Register() {
 
       const data = await res.json()
 
-      // ❌ validation failed
       if (!res.ok) {
 
         alert(data.message || data.error)
@@ -40,7 +41,6 @@ export default function Register() {
 
       }
 
-      // ✅ success
       alert('Registration Successful')
 
       navigate('/')
@@ -48,6 +48,7 @@ export default function Register() {
     } catch (error) {
 
       alert('Server Error')
+
       console.log(error)
 
     }
@@ -56,7 +57,7 @@ export default function Register() {
 
   return (
 
-    <section className="min-h-screen flex items-center justify-center bg-[#020617] text-white px-6">
+    <section className="min-h-screen flex items-center justify-center bg-[#020617] text-white px-6 py-10">
 
       <div className="bg-white/5 border border-white/10 p-10 rounded-3xl w-full max-w-md backdrop-blur-xl">
 
@@ -92,6 +93,40 @@ export default function Register() {
 
           <input
             type="text"
+            placeholder="Branch (CSE, AIML, ETC...)"
+            className="w-full p-4 rounded-xl bg-slate-800 outline-none"
+            required
+          />
+
+          <select
+            className="w-full p-4 rounded-xl bg-slate-800 outline-none"
+            required
+          >
+
+            <option value="">
+              Select Year
+            </option>
+
+            <option value="1st Year">
+              1st Year
+            </option>
+
+            <option value="2nd Year">
+              2nd Year
+            </option>
+
+            <option value="3rd Year">
+              3rd Year
+            </option>
+
+            <option value="4th Year">
+              4th Year
+            </option>
+
+          </select>
+
+          <input
+            type="text"
             placeholder="College Name"
             className="w-full p-4 rounded-xl bg-slate-800 outline-none"
             required
@@ -111,4 +146,5 @@ export default function Register() {
     </section>
 
   )
+
 }

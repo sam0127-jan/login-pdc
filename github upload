@@ -1,4 +1,4 @@
 git status
 git add .
-git commit -m "full backend setup with auth routes"
+git commit -m "name, year branches "
 git push origin main
