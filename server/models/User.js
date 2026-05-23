@@ -1,24 +1,19 @@
-const mongoose = require("mongoose")
+res.status(200).json({
 
-const userSchema = new mongoose.Schema({
+  message: "Login Success",
 
-    name: String,
+  role: user.role,
 
-    email: String,
+  name: user.name,
 
-    password: String,
+  email: user.email,
 
-    branch: String,
+  branch: user.branch,
 
-    year: String,
+  year: user.year,
 
-    college: String,
+  college: user.college,
 
-    role: {
-        type: String,
-        default: "student"
-    }
+  user,
 
 })
-
-module.exports = mongoose.model("User", userSchema)
