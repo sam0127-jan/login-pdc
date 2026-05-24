@@ -15,7 +15,7 @@ export default function Home() {
     { role: "Design Head", name: "Aniket Mohite" },
     { role: "Social Media Head", name: "Atharv Mulik" },
     { role: "Marketing Head", name: "Pradnya Shelke" },
-    { role: "Event Head", name: "-" },
+    { role: "Event Head", name: "Renuka Bansode" },
 
     { role: "PR Co-Head", name: "-" },
     { role: "Design Co-Head", name: "Samiksha Yadav" },
