@@ -7,7 +7,7 @@ export default function Home() {
 
     { role: "President", name: "Siddhi Patil" },
     { role: "Vice President", name: "Sayali Jasud" },
-    { role: "Vice President", name: "Shardual Kolekar" },
+    { role: "Vice President", name: "Shardul Kolekar" },
     { role: "Secretary", name: "Aabha Jahagirdar" },
     { role: "Treasurer", name: "Jaid Nakade" },
 
@@ -15,15 +15,15 @@ export default function Home() {
     { role: "Design Head", name: "Aniket Mohite" },
     { role: "Social Media Head", name: "Atharv Mulik" },
     { role: "Marketing Head", name: "Pradnya Shelke" },
-    { role: "Event Head", name: "Atharva Shriwas" },
+    { role: "Event Head", name: "-" },
 
-    { role: "PR Co-Head", name: "Nandini Patil" },
+    { role: "PR Co-Head", name: "-" },
     { role: "Design Co-Head", name: "Samiksha Yadav" },
-    { role: "Design Co-Head", name: "Soham Patil" },
+    { role: "Design Co-Head", name: "Sakshi Thakare" },
     { role: "Social Media Co-Head", name: "Rushal Pawar" },
     { role: "Marketing Co-Head", name: "Tushant Tagade" },
-    { role: "Event Co-Head", name: "Apeksha Khodave" },
-    { role: "Event Co-Head", name: "Ayan Patvegar" },
+    { role: "Event Co-Head", name: "Soham Patil" },
+    { role: "Event Co-Head", name: "-" },
 
     { role: "Assistant Secretary", name: "Vaibhav Shejal" },
     { role: "Assistant Secretary", name: "Saurabh Tiurwadkar" },
@@ -33,6 +33,7 @@ export default function Home() {
     { role: "Social Media Associate", name: "Pranav Musale" },
     { role: "Marketing Associate", name: "Parthraj Mote" },
     { role: "Event Associate", name: "Pratik Kolase" },
+    { role: "Technical Associate", name: "Siddhi Agedkar" },
     { role: "Technical Associate", name: "Anas Pathan" },
   ]
 
