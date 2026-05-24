@@ -69,9 +69,8 @@ export default function Dashboard() {
           </h2>
 
           <p className="text-4xl font-black text-cyan-400">
-            3rd Year
-          </p>
-
+  {localStorage.getItem("studentYear") || "Not Set"}
+</p>
         </div>
 
         <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-6 rounded-3xl hover:scale-105 transition">
