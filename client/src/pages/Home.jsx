@@ -8,12 +8,12 @@ export default function Home() {
     { role: "President", name: "Siddhi Patil" },
     { role: "Vice President", name: "Sayali Jasud" },
     { role: "Vice President", name: "Shardual Kolekar" },
-    { role: "Secretary", name: "Aabha J." },
+    { role: "Secretary", name: "Aabha Jahagirdar" },
     { role: "Treasurer", name: "Jaid Nakade" },
 
     { role: "PR Head", name: "Vinay Katkar" },
     { role: "Design Head", name: "Aniket Mohite" },
-    { role: "Social Media Head", name: "Atharva Mulik" },
+    { role: "Social Media Head", name: "Atharv Mulik" },
     { role: "Marketing Head", name: "Pradnya Shelke" },
     { role: "Event Head", name: "Atharva Shriwas" },
 
