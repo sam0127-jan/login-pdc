@@ -1,4 +1,4 @@
 git status
 git add .
-git commit -m "name, year branches "
+git commit -m "team upload name "
 git push origin main

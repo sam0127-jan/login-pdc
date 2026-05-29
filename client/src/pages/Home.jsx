@@ -17,7 +17,7 @@ export default function Home() {
     { role: "Marketing Head", name: "Pradnya Shelke" },
     { role: "Event Head", name: "Renuka Bansode" },
 
-    { role: "PR Co-Head", name: "-" },
+    { role: "PR Co-Head", name: "Sabiya Bubanale" },
     { role: "Design Co-Head", name: "Samiksha Yadav" },
     { role: "Design Co-Head", name: "Sakshi Thakare" },
     { role: "Social Media Co-Head", name: "Rushal Pawar" },
@@ -27,7 +27,6 @@ export default function Home() {
 
     { role: "Assistant Secretary", name: "Vaibhav Shejal" },
     { role: "Assistant Secretary", name: "Saurabh Tiurwadkar" },
-    { role: "PR Associate", name: "Sabiya B." },
     { role: "PR Associate", name: "Sunder Chakure" },
     { role: "PR Associate", name: "Aayush Chougule" },
     { role: "Social Media Associate", name: "Pranav Musale" },
